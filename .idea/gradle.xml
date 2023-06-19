@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -10,6 +11,16 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/common/common-datasource" />
+            <option value="$PROJECT_DIR$/common/common-domain" />
+            <option value="$PROJECT_DIR$/common/common-local-datasource" />
+            <option value="$PROJECT_DIR$/common/common-remote-datasource" />
+            <option value="$PROJECT_DIR$/weather" />
+            <option value="$PROJECT_DIR$/weather/weather-datasource" />
+            <option value="$PROJECT_DIR$/weather/weather-domain" />
+            <option value="$PROJECT_DIR$/weather/weather-local-datasource" />
+            <option value="$PROJECT_DIR$/weather/weather-remote-datasource" />
           </set>
         </option>
       </GradleProjectSettings>

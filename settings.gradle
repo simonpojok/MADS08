@@ -15,3 +15,10 @@ dependencyResolutionManagement {
 rootProject.name = "Open Weather"
 include ':app'
 include ':weather:weather-domain'
+include ':common:common-domain'
+include ':common:common-remote-datasource'
+include ':weather:weather-remote-datasource'
+include ':common:common-local-datasource'
+include ':common:common-datasource'
+include ':weather:weather-datasource'
+include ':weather:weather-local-datasource'
