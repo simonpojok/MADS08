@@ -3,13 +3,16 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+apply from: "$rootProject.projectDir/android-ui-library.gradle"
+
+
 android {
-    namespace 'org.nssfug.weather.remote.datasource'
-    compileSdk 33
+    namespace 'org.nssfug.weather.ui'
+    compileSdk 34
 
     defaultConfig {
         minSdk 24
-        targetSdk 33
+        targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -28,14 +31,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        compose true
+    }
 }
 
 dependencies {
-    implementation project(':weather:weather-datasource')
-    implementation project(':common:common-datasource')
-    implementation project(':common:common-remote-datasource')
-
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'javax.inject:javax.inject:1'
+    api project(':common:common-ui')
+    api project(':common:common-presentation')
+    api project(':weather:weather-presentation')
 }

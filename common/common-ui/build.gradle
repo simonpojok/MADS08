@@ -1,22 +1,19 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
 
-apply from: "$rootProject.projectDir/android-ui-library.gradle"
-
 android {
-    namespace 'org.nssfug.openweather'
+    namespace 'org.nssfug.common.ui'
     compileSdk 33
 
     defaultConfig {
-        applicationId "org.nssfug.openweather"
         minSdk 24
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
         vectorDrawables {
             useSupportLibrary true
         }
@@ -53,26 +50,17 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-
+    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation platform('androidx.compose:compose-bom:2022.10.00')
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-graphics'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material3:material3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
-    implementation project(':common:common-ui')
-    implementation project(':weather:weather-ui')
-
-    implementation project(':common:common-presentation')
-    implementation project(':weather:weather-presentation')
-
-    implementation project(':common:common-domain')
-    implementation project(':weather:weather-domain')
-
-    implementation project(':common:common-datasource')
-    implementation project(':weather:weather-datasource')
-
-    implementation project(':common:common-local-datasource')
-    implementation project(':weather:weather-local-datasource')
-
-    implementation project(':common:common-remote-datasource')
-    implementation project(':weather:weather-remote-datasource')
+    androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
 }

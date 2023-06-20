@@ -15,12 +15,16 @@
             <option value="$PROJECT_DIR$/common/common-datasource" />
             <option value="$PROJECT_DIR$/common/common-domain" />
             <option value="$PROJECT_DIR$/common/common-local-datasource" />
+            <option value="$PROJECT_DIR$/common/common-presentation" />
             <option value="$PROJECT_DIR$/common/common-remote-datasource" />
+            <option value="$PROJECT_DIR$/common/common-ui" />
             <option value="$PROJECT_DIR$/weather" />
             <option value="$PROJECT_DIR$/weather/weather-datasource" />
             <option value="$PROJECT_DIR$/weather/weather-domain" />
             <option value="$PROJECT_DIR$/weather/weather-local-datasource" />
+            <option value="$PROJECT_DIR$/weather/weather-presentation" />
             <option value="$PROJECT_DIR$/weather/weather-remote-datasource" />
+            <option value="$PROJECT_DIR$/weather/weather-ui" />
           </set>
         </option>
       </GradleProjectSettings>

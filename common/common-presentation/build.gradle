@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'org.nssfug.weather.remote.datasource'
+    namespace 'org.nssfug.common.presentation'
     compileSdk 33
 
     defaultConfig {
@@ -31,11 +31,11 @@ android {
 }
 
 dependencies {
-    implementation project(':weather:weather-datasource')
-    implementation project(':common:common-datasource')
-    implementation project(':common:common-remote-datasource')
 
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'javax.inject:javax.inject:1'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
