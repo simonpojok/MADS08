@@ -1,6 +1,6 @@
 package org.nssfug.weather.domain.model
 
-class WeatherConditionDomainModel(
+data class WeatherConditionDomainModel(
     val occurrenceTimeStamp: Long?,
     val tempMeasurements: TempMeasurementDomainModel,
     val metaInformation: MetaInformationDomainModel,

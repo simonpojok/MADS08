@@ -24,5 +24,13 @@ class GetDailyWeatherForecastUseCaseImpl(
     ) = locationWeatherForecastRepository.getLocationDailyWeatherConditions(
         longitude = request.longitude,
         latitude = request.latitude
-    )
+    ).map { weatherCondition ->
+        weatherCondition.copy(
+            occurrenceDateTime = weatherCondition.occurrenceDateTime?.split(" ")?.first(),
+        )
+    }.groupBy { weatherCondition -> weatherCondition.occurrenceDateTime }
+        .map { (_, weatherCondition) ->
+            weatherCondition.sortedBy { it.occurrenceTimeStamp }
+                .first()
+        }
 }

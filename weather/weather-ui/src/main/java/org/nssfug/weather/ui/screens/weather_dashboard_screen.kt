@@ -13,6 +13,9 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -22,7 +25,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.nssfug.common.ui.getState
+import org.nssfug.weather.presentation.dashboard.WeatherConditionForecastPresentationState
+import org.nssfug.weather.presentation.dashboard.WeatherConditionPresentationState
 import org.nssfug.weather.presentation.dashboard.WeatherDashboardScreenViewModel
+import org.nssfug.weather.presentation.model.LocationPresentationModel
 import org.nssfug.weather.ui.R
 import org.nssfug.weather.ui.screens.components.TempElementIndicator
 import org.nssfug.weather.ui.screens.components.TempStatisticIndicator
@@ -30,8 +37,15 @@ import org.nssfug.weather.ui.screens.components.TempStatisticIndicator
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeatherDashboardScreen(
-
+    viewModel: WeatherDashboardScreenViewModel = hiltViewModel()
 ) {
+    val dashboardViewState by viewModel.getState()
+
+    LaunchedEffect(Unit, block = {
+        viewModel.fetch5DaysWeatherForecast(LocationPresentationModel(longitude = 0.0, latitude = 0.0))
+        viewModel.fetchLocationWeatherCondition(LocationPresentationModel(longitude = 0.0, latitude = 0.0))
+    })
+
     Scaffold() { internalPadding ->
         Column(
             modifier = Modifier
@@ -59,11 +73,17 @@ fun WeatherDashboardScreen(
             }
 
             Divider(modifier = Modifier.fillMaxWidth())
-            TempStatisticIndicator()
-            TempStatisticIndicator()
-            TempStatisticIndicator()
-            TempStatisticIndicator()
-            TempStatisticIndicator()
+
+            val (weatherForecastState) = dashboardViewState
+
+            when (weatherForecastState) {
+                is WeatherConditionForecastPresentationState.Result -> {
+                    weatherForecastState.items.forEach {
+                        TempStatisticIndicator()
+                    }
+                }
+                else -> {}
+            }
         }
     }
 }
