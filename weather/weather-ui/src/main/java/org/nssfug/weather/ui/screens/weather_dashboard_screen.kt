@@ -20,13 +20,18 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import org.nssfug.weather.presentation.dashboard.WeatherDashboardScreenViewModel
 import org.nssfug.weather.ui.R
 import org.nssfug.weather.ui.screens.components.TempElementIndicator
 import org.nssfug.weather.ui.screens.components.TempStatisticIndicator
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WeatherDashboardScreen() {
+fun WeatherDashboardScreen(
+
+) {
     Scaffold() { internalPadding ->
         Column(
             modifier = Modifier
@@ -61,10 +66,4 @@ fun WeatherDashboardScreen() {
             TempStatisticIndicator()
         }
     }
-}
-
-@Preview
-@Composable
-fun WeatherDashboardScreenPreview() {
-    WeatherDashboardScreen()
 }

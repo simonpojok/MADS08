@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 apply from: "$rootProject.projectDir/android-ui-library.gradle"
@@ -41,4 +43,7 @@ dependencies {
     api project(':common:common-ui')
     api project(':common:common-presentation')
     api project(':weather:weather-presentation')
+
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
 }

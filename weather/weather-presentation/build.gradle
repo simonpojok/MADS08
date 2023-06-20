@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -32,7 +34,10 @@ android {
 
 dependencies {
 
-    implementation project(':common:common-domain')
-    implementation project(':common:common-presentation')
-    implementation project(':weather:weather-domain')
+    api project(':common:common-domain')
+    api project(':common:common-presentation')
+    api project(':weather:weather-domain')
+
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
 }
