@@ -24,7 +24,7 @@ fun TempStatisticIndicator() {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 10.dp)
+            .padding(horizontal = 16.dp, vertical = 18.dp)
     ) {
         Text(text = "Tuesday", color = Color.White, fontSize = 16.sp)
         Image(

@@ -32,6 +32,7 @@ fun WeatherDashboardScreen() {
             modifier = Modifier
                 .background(colorResource(id = R.color.cloudy))
                 .padding(internalPadding)
+                .padding(bottom = 20.dp)
                 .fillMaxSize(),
         ) {
             Image(
@@ -39,7 +40,7 @@ fun WeatherDashboardScreen() {
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(400.dp),
+                    .weight(1.0f),
                 contentScale = ContentScale.FillBounds
             )
 
