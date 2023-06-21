@@ -14,7 +14,7 @@ import org.nssfug.weather.ui.R
 
 @Composable
 fun TempElementIndicator(
-    temp: Int,
+    temp: String,
     description: String
 ) {
     Column(
@@ -22,18 +22,9 @@ fun TempElementIndicator(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = stringResource(
-                R.string.temp_indicator_value,
-                temp.toString(),
-            ),
+            text = temp,
             color = Color.White
         )
         Text(text = description, color = Color.White)
     }
-}
-
-@Composable
-@Preview()
-fun TempElementIndicatorPreview() {
-    TempElementIndicator(temp = 16, description = "min")
 }

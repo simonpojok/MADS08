@@ -27,6 +27,7 @@ import org.nssfug.weather.presentation.model.LocationPresentationModel
 import org.nssfug.weather.ui.R
 import org.nssfug.weather.ui.mapper.WeatherConditionPresentationToUiMapper
 import org.nssfug.weather.ui.mapper.createWeatherConditionUiMapper
+import org.nssfug.weather.ui.screens.components.CurrentWeatherConditionStateHandler
 import org.nssfug.weather.ui.screens.components.TempElementIndicator
 import org.nssfug.weather.ui.screens.components.TempStatisticIndicator
 
@@ -42,6 +43,9 @@ fun WeatherDashboardScreen(
         viewModel.fetch5DaysWeatherForecast(LocationPresentationModel(longitude = 0.0, latitude = 0.0))
         viewModel.fetchLocationWeatherCondition(LocationPresentationModel(longitude = 0.0, latitude = 0.0))
     })
+
+    val (weatherForecastState, weatherConditionState) = dashboardViewState
+
 
     Scaffold() { internalPadding ->
         Column(
@@ -60,18 +64,9 @@ fun WeatherDashboardScreen(
                 contentScale = ContentScale.FillBounds
             )
 
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                TempElementIndicator(temp = 16, description = "min")
-                TempElementIndicator(temp = 16, description = "Current")
-                TempElementIndicator(temp = 16, description = "max")
-            }
+            CurrentWeatherConditionStateHandler(weatherConditionState)
 
             Divider(modifier = Modifier.fillMaxWidth())
-
-            val (weatherForecastState) = dashboardViewState
 
             when (weatherForecastState) {
                 is WeatherConditionForecastPresentationState.Result -> {
