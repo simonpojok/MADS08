@@ -33,11 +33,12 @@ android {
 }
 
 dependencies {
-    def room_version = "2.5.1"
+
 
     api "com.google.android.gms:play-services-location:15.0.1"
     api project(':common:common-datasource')
 
+    def room_version = "2.5.1"
     api "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     kapt "androidx.room:room-compiler:$room_version"

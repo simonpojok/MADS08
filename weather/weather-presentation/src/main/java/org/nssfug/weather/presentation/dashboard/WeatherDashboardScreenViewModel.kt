@@ -138,7 +138,11 @@ class WeatherDashboardScreenViewModel @Inject constructor(
                 locationWeatherForecast = weatherConditionForecastPresentationStateMapper.toDomain(
                     weatherForecast
                 )
-            )
+            ),
+            callback = {},
+            onError = { errors ->
+                println(errors)
+            }
         )
     }
 }

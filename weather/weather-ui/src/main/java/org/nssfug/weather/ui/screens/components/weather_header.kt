@@ -29,7 +29,9 @@ import org.nssfug.weather.ui.mapper.createWeatherConditionUiMapper
 fun WeatherInformationHeader(
     modifier: Modifier = Modifier,
     weatherConditionState: WeatherConditionPresentationState,
-    weatherConditionUiMapper: WeatherConditionPresentationToUiMapper = createWeatherConditionUiMapper()
+    weatherConditionUiMapper: WeatherConditionPresentationToUiMapper = createWeatherConditionUiMapper(),
+    onSaveWeatherConditionFavorite: () -> Unit = {},
+    onViewFavoriteWeatherCondition: () -> Unit = {}
 ) {
     Box(modifier = modifier) {
         when (weatherConditionState) {
@@ -72,7 +74,7 @@ fun WeatherInformationHeader(
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = onSaveWeatherConditionFavorite) {
                 Icon(
                     imageVector = Icons.Default.Favorite,
                     contentDescription = null,
@@ -80,7 +82,7 @@ fun WeatherInformationHeader(
                 )
             }
 
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = onViewFavoriteWeatherCondition) {
                 Icon(
                     imageVector = Icons.Default.List,
                     contentDescription = null,

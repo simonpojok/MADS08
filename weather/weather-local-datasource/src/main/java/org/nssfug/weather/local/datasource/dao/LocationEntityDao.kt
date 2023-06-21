@@ -13,4 +13,7 @@ interface LocationEntityDao {
 
     @Query("SELECT * FROM location")
     suspend fun getLocations(): List<LocationEntity>
+
+    @Query("SELECT * FROM location ORDER BY id DESC LIMIT 1")
+    suspend fun getLatestSavedLocation(): LocationEntity
 }

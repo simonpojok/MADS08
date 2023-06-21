@@ -11,12 +11,14 @@ import org.nssfug.weather.datasource.LocalDataSource
 import org.nssfug.weather.local.datasource.WeatherConditionLocalDatabase
 import org.nssfug.weather.local.datasource.WeatherLocalDataSource
 import org.nssfug.weather.local.datasource.dao.LocationEntityDao
-import org.nssfug.weather.local.datasource.dao.MetaInformationEntityDao
-import org.nssfug.weather.local.datasource.dao.TempMeasurementEntityDao
-import org.nssfug.weather.local.datasource.dao.WeatherConditionEntityDao
+import org.nssfug.weather.local.datasource.mapper.FavoriteWeatherConditionDataToLocalMapper
+import org.nssfug.weather.local.datasource.mapper.LocationDataToEntityMapper
 import org.nssfug.weather.local.datasource.mapper.LocationEntityToDataMapper
+import org.nssfug.weather.local.datasource.mapper.MetaInformationDataToEntityMapper
 import org.nssfug.weather.local.datasource.mapper.MetaInformationEntityToDataMapper
+import org.nssfug.weather.local.datasource.mapper.TempMeasurementDataToEntityMapper
 import org.nssfug.weather.local.datasource.mapper.TempMeasurementEntityToDataMapper
+import org.nssfug.weather.local.datasource.mapper.WeatherConditionDataToEntityMapper
 import org.nssfug.weather.local.datasource.mapper.WeatherConditionEntityToDataMapper
 import javax.inject.Singleton
 
@@ -24,7 +26,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class WeatherLocalDataSourceModule {
     @Provides
-    fun providesWeatherLocalDataSource(): LocalDataSource = WeatherLocalDataSource()
+    fun providesWeatherLocalDataSource(
+        locationEntityDao: LocationEntityDao,
+        favoriteWeatherConditionDataToLocalMapper: FavoriteWeatherConditionDataToLocalMapper
+    ): LocalDataSource =
+        WeatherLocalDataSource(locationEntityDao, favoriteWeatherConditionDataToLocalMapper)
 
     @Provides
     fun providesMetaInformationEntityToDataMapper() = MetaInformationEntityToDataMapper()
@@ -54,14 +60,20 @@ class WeatherLocalDataSourceModule {
         db.locationEntityDao()
 
     @Provides
-    fun providesMetaInformationEntityDao(db: WeatherConditionLocalDatabase): MetaInformationEntityDao =
-        db.metaInformationEntityDao()
+    fun providesLocationDataToEntityMapper() = LocationDataToEntityMapper()
 
     @Provides
-    fun providesTempMeasurementEntityDao(db: WeatherConditionLocalDatabase): TempMeasurementEntityDao =
-        db.tempMeasurementEntityDao()
+    fun providesMetaInformationDataToEntityMapper() = MetaInformationDataToEntityMapper()
 
     @Provides
-    fun providesWeatherConditionEntityDao(db: WeatherConditionLocalDatabase): WeatherConditionEntityDao =
-        db.weatherConditionEntityDao()
+    fun providesTempMeasurementDataToEntityMapper() = TempMeasurementDataToEntityMapper()
+
+    @Provides
+    fun providesFavoriteWeatherConditionDataToLocalMapper(
+        locationDataToEntityMapper: LocationDataToEntityMapper,
+        weatherConditionDataToEntityMapper: WeatherConditionDataToEntityMapper
+    ) = FavoriteWeatherConditionDataToLocalMapper(
+        locationDataToEntityMapper,
+        weatherConditionDataToEntityMapper
+    )
 }

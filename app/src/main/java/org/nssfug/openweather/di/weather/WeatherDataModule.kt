@@ -21,6 +21,9 @@ import org.nssfug.weather.datasource.repository.LocationWeatherForecastDataRepos
 import org.nssfug.weather.domain.repository.FavoriteWeatherConditionRepository
 import org.nssfug.weather.domain.repository.LocationCurrentWeatherConditionRepository
 import org.nssfug.weather.domain.repository.LocationWeatherForecastRepository
+import org.nssfug.weather.local.datasource.mapper.MetaInformationDataToEntityMapper
+import org.nssfug.weather.local.datasource.mapper.TempMeasurementDataToEntityMapper
+import org.nssfug.weather.local.datasource.mapper.WeatherConditionDataToEntityMapper
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -89,8 +92,19 @@ class WeatherDataModule {
 
     @Provides
     fun providesFavoriteWeatherConditionRepository(
-        localDataSource: LocalDataSource
+        localDataSource: LocalDataSource,
+        favoriteWeatherConditionDomainToDataMapper: FavoriteWeatherConditionDomainToDataMapper
     ): FavoriteWeatherConditionRepository = FavoriteWeatherConditionDataRepository(
-        localDataSource
+        localDataSource,
+        favoriteWeatherConditionDomainToDataMapper
+    )
+
+    @Provides
+    fun providesWeatherConditionDataToEntityMapper(
+        tempMeasurementDataMapper: TempMeasurementDataToEntityMapper,
+        metaInformationDataToEntityMapper: MetaInformationDataToEntityMapper
+    ) = WeatherConditionDataToEntityMapper(
+        tempMeasurementDataMapper,
+        metaInformationDataToEntityMapper
     )
 }

@@ -65,7 +65,8 @@ fun WeatherDashboardScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(300.dp),
-                weatherConditionState = weatherConditionState
+                weatherConditionState = weatherConditionState,
+                onSaveWeatherConditionFavorite = viewModel::onMarkCurrentWeatherConditionFavorite
             )
 
             CurrentWeatherConditionStateHandler(weatherConditionState)
