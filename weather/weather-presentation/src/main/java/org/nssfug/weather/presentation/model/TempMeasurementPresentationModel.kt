@@ -1,7 +1,7 @@
 package org.nssfug.weather.presentation.model
 
 data class TempMeasurementPresentationModel(
-    val currentTemperature: Double,
-    val minimumTemperature: Double,
-    val maximumTemperature: Double
+    val currentTemperature: Int,
+    val minimumTemperature: Int,
+    val maximumTemperature: Int
 )

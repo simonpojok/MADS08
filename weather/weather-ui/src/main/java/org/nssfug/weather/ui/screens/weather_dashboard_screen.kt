@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -15,29 +14,27 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.nssfug.common.ui.getState
 import org.nssfug.weather.presentation.dashboard.WeatherConditionForecastPresentationState
-import org.nssfug.weather.presentation.dashboard.WeatherConditionPresentationState
 import org.nssfug.weather.presentation.dashboard.WeatherDashboardScreenViewModel
 import org.nssfug.weather.presentation.model.LocationPresentationModel
 import org.nssfug.weather.ui.R
+import org.nssfug.weather.ui.mapper.WeatherConditionPresentationToUiMapper
+import org.nssfug.weather.ui.mapper.createWeatherConditionUiMapper
 import org.nssfug.weather.ui.screens.components.TempElementIndicator
 import org.nssfug.weather.ui.screens.components.TempStatisticIndicator
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeatherDashboardScreen(
-    viewModel: WeatherDashboardScreenViewModel = hiltViewModel()
+    viewModel: WeatherDashboardScreenViewModel = hiltViewModel(),
+    weatherConditionUiMapper: WeatherConditionPresentationToUiMapper = createWeatherConditionUiMapper()
 ) {
     val dashboardViewState by viewModel.getState()
 
@@ -78,8 +75,9 @@ fun WeatherDashboardScreen(
 
             when (weatherForecastState) {
                 is WeatherConditionForecastPresentationState.Result -> {
-                    weatherForecastState.items.forEach {
-                        TempStatisticIndicator()
+                    val weatherConditions = weatherForecastState.items.map(weatherConditionUiMapper::toUi)
+                    weatherConditions.forEach { weatherCondition ->
+                        TempStatisticIndicator(weatherCondition = weatherCondition)
                     }
                 }
                 else -> {}

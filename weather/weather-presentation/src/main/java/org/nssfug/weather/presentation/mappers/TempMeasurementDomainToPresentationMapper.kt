@@ -8,8 +8,8 @@ class TempMeasurementDomainToPresentationMapper :
     DomainToPresentationMapper<TempMeasurementDomainModel, TempMeasurementPresentationModel> {
     override fun toPresentation(domain: TempMeasurementDomainModel) =
         TempMeasurementPresentationModel(
-            currentTemperature = domain.currentTemperature,
-            minimumTemperature = domain.minimumTemperature,
-            maximumTemperature = domain.maximumTemperature
+            currentTemperature = domain.currentTemperature.toInt(),
+            minimumTemperature = domain.minimumTemperature.toInt(),
+            maximumTemperature = domain.maximumTemperature.toInt()
         )
 }

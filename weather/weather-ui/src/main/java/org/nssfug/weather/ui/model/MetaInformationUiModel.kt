@@ -1,8 +1,8 @@
 package org.nssfug.weather.ui.model
 
+import androidx.annotation.DrawableRes
+
 data class MetaInformationUiModel(
-    val id: Int,
-    val main: String,
-    val description: String,
-    val icon: String
+    @DrawableRes
+    val iconResourceId: Int,
 )

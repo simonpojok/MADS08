@@ -3,25 +3,34 @@ package org.nssfug.openweather
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 import org.nssfug.openweather.ui.theme.OpenWeatherTheme
 import org.nssfug.weather.presentation.dashboard.WeatherDashboardScreenViewModel
+import org.nssfug.weather.ui.MainWeatherContext
+import org.nssfug.weather.ui.mapper.MetaInformationPresentationToUiMapper
+import org.nssfug.weather.ui.mapper.TempMeasurementPresentationToUiMapper
+import org.nssfug.weather.ui.mapper.WeatherConditionPresentationToUiMapper
 import org.nssfug.weather.ui.screens.WeatherDashboardScreen
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), MainWeatherContext {
+    @Inject
+    override lateinit var weatherConditionPresentationToUiMapper: WeatherConditionPresentationToUiMapper
+
+    @Inject
+    override lateinit var metaInformationPresentationToUiMapper: MetaInformationPresentationToUiMapper
+
+    @Inject
+    override lateinit var tempMeasurementPresentationToUiMapper: TempMeasurementPresentationToUiMapper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

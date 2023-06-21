@@ -18,6 +18,10 @@ class RemoteDataSourceImpl(
     override suspend fun getRemoteLocationDailyWeatherConditions(location: LocationDataModel): List<WeatherConditionDataModel> {
         val query = locationDataToRemoteMapper.toRemote(location)
             .toQueryMap()
+            .toMutableMap()
+            .apply {
+                put("units", "metric")
+            }
 
         return weatherService.getCurrentWeatherForecastData(query).list.map(weatherConditionRemoteDataMapper::toData)
     }
@@ -25,6 +29,10 @@ class RemoteDataSourceImpl(
     override suspend fun getRemoteCurrentWeatherCondition(location: LocationDataModel): WeatherConditionDataModel {
         val query = locationDataToRemoteMapper.toRemote(location)
             .toQueryMap()
+            .toMutableMap()
+            .apply {
+                put("units", "metric")
+            }
         return weatherConditionRemoteDataMapper.toData(weatherService.getCurrentWeatherData(query))
     }
 
