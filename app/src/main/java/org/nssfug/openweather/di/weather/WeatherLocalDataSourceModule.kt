@@ -28,9 +28,18 @@ class WeatherLocalDataSourceModule {
     @Provides
     fun providesWeatherLocalDataSource(
         locationEntityDao: LocationEntityDao,
-        favoriteWeatherConditionDataToLocalMapper: FavoriteWeatherConditionDataToLocalMapper
+        favoriteWeatherConditionDataToLocalMapper: FavoriteWeatherConditionDataToLocalMapper,
+        weatherConditionDataToEntityMapper: WeatherConditionDataToEntityMapper,
+        locationDataToEntityMapper: LocationDataToEntityMapper,
+        weatherConditionEntityMapper: WeatherConditionEntityToDataMapper
     ): LocalDataSource =
-        WeatherLocalDataSource(locationEntityDao, favoriteWeatherConditionDataToLocalMapper)
+        WeatherLocalDataSource(
+            locationEntityDao,
+            favoriteWeatherConditionDataToLocalMapper,
+            weatherConditionDataToEntityMapper,
+            locationDataToEntityMapper,
+            weatherConditionEntityMapper
+        )
 
     @Provides
     fun providesMetaInformationEntityToDataMapper() = MetaInformationEntityToDataMapper()

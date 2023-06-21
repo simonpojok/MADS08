@@ -8,7 +8,8 @@ data class LocationEntity(
     val longitude: Double,
     val latitude: Double,
     var weatherConditionData: String = "",
-    var isFavourite: Boolean = false
+    var isFavourite: Boolean = false,
+    var contentType: String = ""
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

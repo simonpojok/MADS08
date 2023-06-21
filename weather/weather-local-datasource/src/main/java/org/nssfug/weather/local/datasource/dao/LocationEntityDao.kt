@@ -16,4 +16,7 @@ interface LocationEntityDao {
 
     @Query("SELECT * FROM location ORDER BY id DESC LIMIT 1")
     suspend fun getLatestSavedLocation(): LocationEntity
+
+    @Query("SELECT * FROM location WHERE longitude=:longitude AND latitude=:latitude AND contentType=:contentType")
+    fun getLocation(longitude: Double, latitude: Double, contentType: String): LocationEntity?
 }
