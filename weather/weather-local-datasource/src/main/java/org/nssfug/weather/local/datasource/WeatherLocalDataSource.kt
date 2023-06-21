@@ -28,6 +28,7 @@ class WeatherLocalDataSource(
         locationEntityDao.insertLocation(
             localEntities.locationEntity.apply {
                 this.weatherConditionData = weatherCondition
+                this.isFavourite = true
             }
         )
 

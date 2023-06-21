@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey
 data class LocationEntity(
     val longitude: Double,
     val latitude: Double,
-    var weatherConditionData: String = ""
+    var weatherConditionData: String = "",
+    var isFavourite: Boolean = false
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

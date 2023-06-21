@@ -8,7 +8,7 @@ import org.nssfug.weather.local.datasource.model.LocationEntity
 @Database(
     entities = [
         LocationEntity::class,
-    ], version = 1
+    ], version = 2
 )
 abstract class WeatherConditionLocalDatabase : RoomDatabase() {
     abstract fun locationEntityDao(): LocationEntityDao
