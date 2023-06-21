@@ -1,4 +1,4 @@
-package org.nssfug.weather.ui.screens
+package org.nssfug.weather.ui.screens.dashboard
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import org.nssfug.common.ui.getState
@@ -32,7 +33,8 @@ import org.nssfug.weather.ui.screens.components.WeatherInformationHeader
 @Composable
 fun WeatherDashboardScreen(
     viewModel: WeatherDashboardScreenViewModel = hiltViewModel(),
-    weatherConditionUiMapper: WeatherConditionPresentationToUiMapper = createWeatherConditionUiMapper()
+    weatherConditionUiMapper: WeatherConditionPresentationToUiMapper = createWeatherConditionUiMapper(),
+    navController: NavHostController
 ) {
     val dashboardViewState by viewModel.getState()
     val locationPermissions = rememberMultiplePermissionsState(
@@ -66,7 +68,8 @@ fun WeatherDashboardScreen(
                     .fillMaxWidth()
                     .height(300.dp),
                 weatherConditionState = weatherConditionState,
-                onSaveWeatherConditionFavorite = viewModel::onMarkCurrentWeatherConditionFavorite
+                onSaveWeatherConditionFavorite = viewModel::onMarkCurrentWeatherConditionFavorite,
+                onViewFavoriteWeatherCondition = { navController.navigate("favorites") }
             )
 
             CurrentWeatherConditionStateHandler(weatherConditionState)
