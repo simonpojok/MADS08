@@ -49,6 +49,8 @@ android {
 
 dependencies {
     api 'com.google.accompanist:accompanist-permissions:0.21.1-beta'
+    api  "androidx.compose.material:material-icons-extended"
+
 
 
     api 'androidx.hilt:hilt-navigation-compose:1.0.0'
