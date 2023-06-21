@@ -6,10 +6,15 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.nssfug.weather.datasource.LocalDataSource
 import org.nssfug.weather.datasource.RemoteDataSource
+import org.nssfug.weather.datasource.mapper.FavoriteWeatherConditionDomainToDataMapper
 import org.nssfug.weather.datasource.mapper.LocationDataToDomainMapper
+import org.nssfug.weather.datasource.mapper.LocationDomainToDataMapper
 import org.nssfug.weather.datasource.mapper.MetaInformationDataToDomainMapper
+import org.nssfug.weather.datasource.mapper.MetaInformationDomainToDataMapper
 import org.nssfug.weather.datasource.mapper.TempMeasurementDataToDomainMapper
+import org.nssfug.weather.datasource.mapper.TempMeasurementDomainToDataMapper
 import org.nssfug.weather.datasource.mapper.WeatherConditionDataToDomainMapper
+import org.nssfug.weather.datasource.mapper.WeatherConditionDomainToDataMapper
 import org.nssfug.weather.datasource.repository.LocationCurrentWeatherConditionDataRepository
 import org.nssfug.weather.datasource.repository.LocationWeatherForecastDataRepository
 import org.nssfug.weather.domain.repository.LocationCurrentWeatherConditionRepository
@@ -55,4 +60,28 @@ class WeatherDataModule {
         remoteDataSource,
         localDataSource
     )
+
+    @Provides
+    fun providesFavoriteWeatherConditionDomainToDataMapper(
+        weatherConditionDomainMapper: WeatherConditionDomainToDataMapper,
+        locationDomainToDataMapper: LocationDomainToDataMapper
+    ) = FavoriteWeatherConditionDomainToDataMapper(
+        weatherConditionDomainMapper,
+        locationDomainToDataMapper
+    )
+
+    @Provides
+    fun providesLocationDomainToDataMapper() = LocationDomainToDataMapper()
+
+    @Provides
+    fun providesWeatherConditionDomainToDataMapper(
+        tempMeasurementDomainMapper: TempMeasurementDomainToDataMapper,
+        metaInformationDomainMapper: MetaInformationDomainToDataMapper
+    ) = WeatherConditionDomainToDataMapper(tempMeasurementDomainMapper, metaInformationDomainMapper)
+
+    @Provides
+    fun providesTempMeasurementDomainToDataMapper() = TempMeasurementDomainToDataMapper()
+
+    @Provides
+    fun providesMetaInformationDomainToDataMapper() = MetaInformationDomainToDataMapper()
 }

@@ -5,12 +5,15 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.nssfug.common.domain.CoroutineContextProvider
+import org.nssfug.weather.domain.repository.FavoriteWeatherConditionRepository
 import org.nssfug.weather.domain.repository.LocationCurrentWeatherConditionRepository
 import org.nssfug.weather.domain.repository.LocationWeatherForecastRepository
 import org.nssfug.weather.domain.usecase.GetCurrentWeatherConditionUseCase
 import org.nssfug.weather.domain.usecase.GetCurrentWeatherConditionUseCaseImpl
 import org.nssfug.weather.domain.usecase.GetDailyWeatherForecastUseCase
 import org.nssfug.weather.domain.usecase.GetDailyWeatherForecastUseCaseImpl
+import org.nssfug.weather.domain.usecase.SaveFavoriteWeatherConditionUseCase
+import org.nssfug.weather.domain.usecase.SaveFavoriteWeatherConditionUseCaseImp
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -29,5 +32,13 @@ class WeatherDomainModule {
         locationWeatherForecastRepository: LocationWeatherForecastRepository
     ): GetDailyWeatherForecastUseCase = GetDailyWeatherForecastUseCaseImpl(
         coroutineContextProvider, locationWeatherForecastRepository
+    )
+
+    @Provides
+    fun providesSaveFavoriteWeatherConditionUseCase(
+        coroutineContextProvider: CoroutineContextProvider,
+        favoriteWeatherConditionRepository: FavoriteWeatherConditionRepository
+    ): SaveFavoriteWeatherConditionUseCase = SaveFavoriteWeatherConditionUseCaseImp(
+        coroutineContextProvider, favoriteWeatherConditionRepository
     )
 }
