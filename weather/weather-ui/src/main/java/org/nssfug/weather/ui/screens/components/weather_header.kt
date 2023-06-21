@@ -1,8 +1,6 @@
 package org.nssfug.weather.ui.screens.components
 
-import android.provider.CalendarContract.Colors
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Box
@@ -10,11 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.rounded.Favorite
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -27,7 +22,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.nssfug.weather.presentation.dashboard.WeatherConditionPresentationState
-import org.nssfug.weather.ui.R
 import org.nssfug.weather.ui.mapper.WeatherConditionPresentationToUiMapper
 import org.nssfug.weather.ui.mapper.createWeatherConditionUiMapper
 
