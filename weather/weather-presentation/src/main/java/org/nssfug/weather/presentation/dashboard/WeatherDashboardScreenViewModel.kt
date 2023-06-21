@@ -1,7 +1,10 @@
 package org.nssfug.weather.presentation.dashboard
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import org.nssfug.common.presentation.BaseViewModel
+import org.nssfug.common.presentation.location.LocationTracker
 import org.nssfug.common.presentation.usecase.UseCaseExecutorProvider
 import org.nssfug.weather.domain.model.LocationDomainModel
 import org.nssfug.weather.domain.usecase.GetCurrentWeatherConditionUseCase
@@ -15,6 +18,7 @@ class WeatherDashboardScreenViewModel @Inject constructor(
     private val getDailyWeatherForecastUseCase: GetDailyWeatherForecastUseCase,
     private val getCurrentWeatherConditionUseCase: GetCurrentWeatherConditionUseCase,
     private val weatherConditionDomainMapper: WeatherConditionDomainToPresentationMapper,
+    private val locationTracker: LocationTracker,
     useCaseExecutorProvider: UseCaseExecutorProvider
 ) : BaseViewModel<WeatherDashboardScreenViewState>(useCaseExecutorProvider) {
 
@@ -78,5 +82,24 @@ class WeatherDashboardScreenViewModel @Inject constructor(
                 }
             }
         )
+    }
+
+//    TODO: UseCase to query location needs to be create
+    fun getCurrentLocation() {
+        viewModelScope.launch {
+            val location = locationTracker.getCurrentLocation()
+            fetch5DaysWeatherForecast(
+                LocationPresentationModel(
+                    latitude = location?.latitude ?: 0.0,
+                    longitude = location?.longitude ?: 0.0
+                )
+            )
+            fetchLocationWeatherCondition(
+                LocationPresentationModel(
+                    latitude = location?.latitude ?: 0.0,
+                    longitude = location?.longitude ?: 0.0
+                )
+            )
+        }
     }
 }

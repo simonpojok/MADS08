@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import org.nssfug.common.ui.getState
 import org.nssfug.weather.presentation.dashboard.WeatherConditionForecastPresentationState
 import org.nssfug.weather.presentation.dashboard.WeatherDashboardScreenViewModel
@@ -27,28 +29,27 @@ import org.nssfug.weather.ui.screens.components.CurrentWeatherConditionStateHand
 import org.nssfug.weather.ui.screens.components.TempStatisticIndicator
 import org.nssfug.weather.ui.screens.components.WeatherInformationHeader
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun WeatherDashboardScreen(
     viewModel: WeatherDashboardScreenViewModel = hiltViewModel(),
     weatherConditionUiMapper: WeatherConditionPresentationToUiMapper = createWeatherConditionUiMapper()
 ) {
     val dashboardViewState by viewModel.getState()
+    val locationPermissions = rememberMultiplePermissionsState(
+        permissions = listOf(
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+        )
+    )
 
-    LaunchedEffect(Unit, block = {
-        viewModel.fetch5DaysWeatherForecast(
-            LocationPresentationModel(
-                longitude = 0.0,
-                latitude = 0.0
-            )
-        )
-        viewModel.fetchLocationWeatherCondition(
-            LocationPresentationModel(
-                longitude = 0.0,
-                latitude = 0.0
-            )
-        )
-    })
+    LaunchedEffect(key1 = locationPermissions.allPermissionsGranted) {
+        if (locationPermissions.allPermissionsGranted) {
+            viewModel.getCurrentLocation()
+        } else {
+            locationPermissions.launchMultiplePermissionRequest()
+        }
+    }
 
     val (weatherForecastState, weatherConditionState) = dashboardViewState
 
