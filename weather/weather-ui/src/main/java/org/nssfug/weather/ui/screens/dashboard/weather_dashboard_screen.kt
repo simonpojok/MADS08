@@ -21,6 +21,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import org.nssfug.common.ui.getState
 import org.nssfug.weather.presentation.dashboard.WeatherConditionForecastPresentationState
+import org.nssfug.weather.presentation.dashboard.WeatherConditionPresentationState
 import org.nssfug.weather.presentation.dashboard.WeatherDashboardScreenViewModel
 import org.nssfug.weather.ui.R
 import org.nssfug.weather.ui.mapper.WeatherConditionPresentationToUiMapper
@@ -54,11 +55,19 @@ fun WeatherDashboardScreen(
 
     val (weatherForecastState, weatherConditionState) = dashboardViewState
 
+    val backgroundColor = when (weatherConditionState) {
+        is WeatherConditionPresentationState.Result ->
+            weatherConditionUiMapper.toUi(weatherConditionState.weatherCondition)
+                .metaInformation.backgroundColor
+
+        else -> R.color.cloudy
+    }
+
 
     Scaffold() { internalPadding ->
         Column(
             modifier = Modifier
-                .background(colorResource(id = R.color.cloudy))
+                .background(colorResource(id = backgroundColor))
                 .padding(internalPadding)
                 .padding(bottom = 20.dp)
                 .fillMaxSize(),
