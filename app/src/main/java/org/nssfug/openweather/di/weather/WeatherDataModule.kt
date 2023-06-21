@@ -15,8 +15,10 @@ import org.nssfug.weather.datasource.mapper.TempMeasurementDataToDomainMapper
 import org.nssfug.weather.datasource.mapper.TempMeasurementDomainToDataMapper
 import org.nssfug.weather.datasource.mapper.WeatherConditionDataToDomainMapper
 import org.nssfug.weather.datasource.mapper.WeatherConditionDomainToDataMapper
+import org.nssfug.weather.datasource.repository.FavoriteWeatherConditionDataRepository
 import org.nssfug.weather.datasource.repository.LocationCurrentWeatherConditionDataRepository
 import org.nssfug.weather.datasource.repository.LocationWeatherForecastDataRepository
+import org.nssfug.weather.domain.repository.FavoriteWeatherConditionRepository
 import org.nssfug.weather.domain.repository.LocationCurrentWeatherConditionRepository
 import org.nssfug.weather.domain.repository.LocationWeatherForecastRepository
 
@@ -84,4 +86,11 @@ class WeatherDataModule {
 
     @Provides
     fun providesMetaInformationDomainToDataMapper() = MetaInformationDomainToDataMapper()
+
+    @Provides
+    fun providesFavoriteWeatherConditionRepository(
+        localDataSource: LocalDataSource
+    ): FavoriteWeatherConditionRepository = FavoriteWeatherConditionDataRepository(
+        localDataSource
+    )
 }
