@@ -26,7 +26,7 @@ fun TempStatisticIndicator(weatherCondition: WeatherConditionUiModel) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 18.dp)
     ) {
-        Text(text = "Tuesday", color = Color.White, fontSize = 16.sp)
+        Text(text = weatherCondition.date, color = Color.White, fontSize = 16.sp)
         Image(
             painter = painterResource(id = weatherCondition.metaInformation.iconResourceId),
             contentDescription = null,
