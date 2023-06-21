@@ -31,9 +31,6 @@ class WeatherLocalDataSource(
 
         val sType = object : TypeToken<List<WeatherConditionEntity>>() {}.type
 
-        val result =
-            Gson().fromJson<List<WeatherConditionEntity>>(localLocation.weatherConditionData, sType)
-
         return Gson().fromJson<List<WeatherConditionEntity>>(
             localLocation.weatherConditionData,
             sType
