@@ -21,7 +21,6 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import org.nssfug.common.ui.getState
 import org.nssfug.weather.presentation.dashboard.WeatherConditionForecastPresentationState
 import org.nssfug.weather.presentation.dashboard.WeatherDashboardScreenViewModel
-import org.nssfug.weather.presentation.model.LocationPresentationModel
 import org.nssfug.weather.ui.R
 import org.nssfug.weather.ui.mapper.WeatherConditionPresentationToUiMapper
 import org.nssfug.weather.ui.mapper.createWeatherConditionUiMapper
@@ -45,7 +44,7 @@ fun WeatherDashboardScreen(
 
     LaunchedEffect(key1 = locationPermissions.allPermissionsGranted) {
         if (locationPermissions.allPermissionsGranted) {
-            viewModel.getCurrentLocation()
+            viewModel.onLoadWeatherConditionAction()
         } else {
             locationPermissions.launchMultiplePermissionRequest()
         }

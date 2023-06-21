@@ -34,6 +34,7 @@ android {
 
 dependencies {
 
+    api "com.google.android.gms:play-services-location:15.0.1"
     api project(':common:common-datasource')
 
     implementation "com.google.dagger:hilt-android:2.44"

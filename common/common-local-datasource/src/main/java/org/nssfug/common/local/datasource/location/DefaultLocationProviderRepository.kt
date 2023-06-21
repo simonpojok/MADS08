@@ -1,4 +1,4 @@
-package org.nssfug.common.presentation.location
+package org.nssfug.common.local.datasource.location
 
 import android.app.Application
 import android.content.Context
@@ -9,13 +9,16 @@ import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
+import org.nssfug.common.datasource.LocationProviderLocalDataSource
+import org.nssfug.common.datasource.model.LocationDataModel
+import java.lang.IllegalArgumentException
 
-class DefaultLocationTracker(
+class DefaultLocationProviderRepository(
     private val fusedLocationProviderClient: FusedLocationProviderClient,
     private val application: Application
-) : LocationTracker {
+) : LocationProviderLocalDataSource {
     @OptIn(ExperimentalCoroutinesApi::class)
-    override suspend fun getCurrentLocation(): Location? {
+    override suspend fun getCurrentLocation(): LocationDataModel {
         val hasAccessFineLocationPermission = ContextCompat.checkSelfPermission(
             application,
             android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -35,10 +38,10 @@ class DefaultLocationTracker(
                 locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 
         if (!isGpsEnabled && !(hasAccessCoarseLocationPermission || hasAccessFineLocationPermission)) {
-            return null
+            throw IllegalArgumentException("Permission Not Granted")
         }
 
-        return suspendCancellableCoroutine { cont ->
+        val location: Location? = suspendCancellableCoroutine { cont ->
             fusedLocationProviderClient.lastLocation.apply {
                 if (isComplete) {
                     if (isSuccessful) {
@@ -59,5 +62,10 @@ class DefaultLocationTracker(
                 }
             }
         }
+
+        return LocationDataModel(
+            longitude = location?.longitude ?: 0.0,
+            latitude = location?.latitude ?: 0.0
+        )
     }
 }
